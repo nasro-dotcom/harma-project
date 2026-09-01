@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Your matches</h2>
+
+{% if match_rows %}
+<div class="row g-3">
+    {% for match, other in match_rows %}
+        <div class="col-md-4">
+            <div class="card match-card">
+                <div class="card-body d-flex align-items-center gap-3">
+                    {% if other.profile.photo %}
+                        <img src="{{ other.profile.photo.url }}" style="width:60px;height:60px;object-fit:cover;border-radius:50%;" alt="{{ other.username }}">
+                    {% else %}
+                        <div class="no-photo" style="width:60px;height:60px;border-radius:50%;font-size:1.5rem;">🙂</div>
+                    {% endif %}
+                    <div>
+                        <h5 class="mb-0">{{ other.username }}</h5>
+                        <a href="{% url 'conversation' match.id %}" class="small">Open chat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">No matches yet — keep swiping on <a href="{% url 'discover' %}">Discover</a>!</p>
+{% endif %}
+{% endblock %}

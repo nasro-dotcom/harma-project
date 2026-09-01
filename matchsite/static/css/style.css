@@ -1,0 +1,74 @@
+:root {
+    --brand-1: #7b2ff7;
+    --brand-2: #f107a3;
+}
+
+body {
+    background: #faf7ff;
+}
+
+.app-navbar {
+    background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+    color: white;
+    border-radius: 1rem;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.swipe-card {
+    max-width: 420px;
+    margin: 0 auto;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(123, 47, 247, 0.15);
+}
+
+.swipe-card img, .swipe-card .no-photo {
+    height: 420px;
+    object-fit: cover;
+    width: 100%;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 4rem;
+}
+
+.action-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.match-card, .profile-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.chat-bubble {
+    max-width: 70%;
+    padding: .5rem 1rem;
+    border-radius: 1rem;
+    margin-bottom: .5rem;
+}
+
+.chat-bubble.mine {
+    background: var(--brand-1);
+    color: white;
+    margin-left: auto;
+}
+
+.chat-bubble.theirs {
+    background: #eee;
+    color: #222;
+}

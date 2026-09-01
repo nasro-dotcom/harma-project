@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-md-6 mx-auto">
+    <h2 class="mb-4">Edit your profile</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-3">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+                {% for error in field.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary w-100">Save profile</button>
+    </form>
+
+    {% if gallery_photos %}
+    <h5 class="mt-4">Your gallery photos</h5>
+    <div class="row g-2">
+        {% for photo in gallery_photos %}
+        <div class="col-4">
+            <div class="position-relative">
+                <img src="{{ photo.image.url }}" class="w-100" style="height:120px;object-fit:cover;border-radius:.5rem;">
+                <form method="post" action="{% url 'delete_photo' photo.id %}" class="position-absolute top-0 end-0 m-1">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-danger">✕</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

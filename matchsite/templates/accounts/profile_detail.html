@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-md-6 mx-auto">
+    <div class="card profile-card">
+        {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" class="card-img-top" style="height:380px;object-fit:cover;" alt="{{ profile_user.username }}">
+        {% else %}
+            <div class="no-photo" style="height:380px;">🙂</div>
+        {% endif %}
+        <div class="card-body">
+            <h3 class="card-title">
+                {{ profile_user.username }}{% if profile.age %}, {{ profile.age }}{% endif %}
+            </h3>
+            <p class="text-muted mb-1">
+                {% if profile.city %}{{ profile.city }}{% endif %}{% if profile.country %}, {{ profile.country }}{% endif %}
+            </p>
+            {% if profile.bio %}<p class="mt-3">{{ profile.bio }}</p>{% endif %}
+        </div>
+    </div>
+
+    {% if profile.photos.all %}
+    <div class="row g-2 mt-1">
+        {% for photo in profile.photos.all %}
+        <div class="col-4">
+            <img src="{{ photo.image.url }}" class="w-100" style="height:130px;object-fit:cover;border-radius:.5rem;">
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if profile_user == user %}
+        <div class="text-center mt-3">
+            <a href="{% url 'profile_edit' %}" class="btn btn-outline-primary">Edit my profile</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

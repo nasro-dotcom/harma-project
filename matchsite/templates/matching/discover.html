@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-center mb-4">Discover</h2>
+
+{% if next_profile %}
+<div class="swipe-card card">
+    {% if next_profile.photo %}
+        <img src="{{ next_profile.photo.url }}" alt="{{ next_profile.user.username }}">
+    {% else %}
+        <div class="no-photo">🙂</div>
+    {% endif %}
+    <div class="card-body text-center">
+        <h4>{{ next_profile.user.username }}{% if next_profile.age %}, {{ next_profile.age }}{% endif %}</h4>
+        <p class="text-muted">
+            {% if next_profile.city %}{{ next_profile.city }}{% endif %}{% if next_profile.country %}, {{ next_profile.country }}{% endif %}
+        </p>
+        {% if next_profile.bio %}<p>{{ next_profile.bio }}</p>{% endif %}
+
+        <div class="d-flex justify-content-center gap-4 mt-3">
+            <form method="post" action="{% url 'pass_profile' next_profile.user.username %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger action-btn">✕</button>
+            </form>
+            <form method="post" action="{% url 'like_profile' next_profile.user.username %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-success action-btn">♥</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="text-center text-muted mt-5">
+    <p class="fs-4">No more profiles for now 🙈</p>
+    <p>Check back later, or complete your profile to attract more matches.</p>
+    <a href="{% url 'profile_edit' %}" class="btn btn-outline-primary mt-2">Edit my profile</a>
+</div>
+{% endif %}
+{% endblock %}
